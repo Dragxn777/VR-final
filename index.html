@@ -34,6 +34,8 @@
       <a-asset-item id="thirdpath" src="./assets/thirdpath.glb"></a-asset-item>
       <a-asset-item id="fence" src="./assets/fence.glb"></a-asset-item>
       <a-asset-item id="colossal" src="./assets/colossal_titan.glb"></a-asset-item>
+      <a-asset-item id="rock" src="./assets/rock.glb"></a-asset-item>
+
       <img id="road" src="./assets/ground.png"></img>
       <img id="map" src="./assets/normalmap.png"></img>
       <img id="stone" src="./assets/stone.png" alt="">
@@ -44,9 +46,9 @@
 
     <a-entity id="rig" movement-controls position="0 0 -8" kinematic-body foo>
       <!-- Caméra attachée au rig -->
-      <a-entity camera look-controls wasd-controls="fly: false; acceleration: 10;" position="0 1.6 -8"></a-entity>
+      <a-entity camera look-controls wasd-controls="fly: true; acceleration: 150;" position="0 1.6 -8"></a-entity>
 
-        <a-sound src="src: url(./assets/music.mp3)" target="#rig" autoplay="true" loop="true" volume="2.5" position="0 5 -50"></a-sound>
+      <a-sound src="src: url(./assets/music2.mp3)" autoplay="true" loop="true" volume="1"></a-sound>
 
 
       <!-- Contrôleurs VR -->
@@ -56,8 +58,10 @@
 
       <!-- Sabres -->
 
-      <a-entity gltf-model="#sword" position="0.5 0.5 0" rotation="20 0 90" target="#rig" scale="0.0015 0.0015 0.0015"></a-entity>
-      <a-entity gltf-model="#sword" position="-0.5 0.5 0" rotation="20 0 90" target="#rig" scale="0.0015 0.0015 0.0015"></a-entity>
+      <a-entity gltf-model="#sword" position="0.5 0.7 0" rotation="20 0 90" target="#rig"
+        scale="0.0014 0.0014 0.0014"></a-entity>
+      <a-entity gltf-model="#sword" position="-0.5 0.7 0" rotation="20 0 90" target="#rig"
+        scale="0.0014 0.0014 0.0014"></a-entity>
 
       <a-entity laser-controls="hand: left" raycaster="objects: .clickable; far: 20; showLine: true"
         position="-0.5 1.5 -0.5"></a-entity>
@@ -83,43 +87,50 @@
         visible="false"></a-entity>
     </a-entity>
 
-    <!-- Maisons -->
+    <!-- Maisons gauche -->
     <a-entity>
-
       <a-entity gltf-model="#house1" position="-10 0 -12" scale="3.5 3.5 3.5" rotation="0 90 0"></a-entity>
-
       <a-entity gltf-model="#house2" position="-10 0 -30" scale="3.5 3.5 3.5" rotation="0 90 0"></a-entity>
-
       <a-entity gltf-model="#house3" position="-10 0 -50" scale="3.5 3.5 3.5" rotation="0 90 0"></a-entity>
-
       <a-entity gltf-model="#house1" position="-10 0 -75" scale="3.5 3.5 3.5" rotation="0 0 0"></a-entity>
-
       <a-entity gltf-model="#house1" position="-25 0 -75" scale="3.5 3.5 3.5" rotation="0 0 0"></a-entity>
-
       <a-entity gltf-model="#house1" position="-40 0 -75" scale="3.5 3.5 3.5" rotation="0 0 0"></a-entity>
-
       <a-entity gltf-model="#house2" position="-40 0 -20" scale="3.5 3.5 3.5" rotation="0 90 0"></a-entity>
-
       <a-entity gltf-model="#house1" position="-40 0 -40" scale="3.5 3.5 3.5" rotation="0 90 0"></a-entity>
-
       <a-entity gltf-model="#house3" position="-10 0 -100" scale="5.5 5.5 5.5" rotation="0 0 0"></a-entity>
-
       <a-entity gltf-model="#house2" position="-40 0 -100" scale="3.5 3.5 3.5" rotation="0 90 0"></a-entity>
-
       <a-entity gltf-model="#house1" position="-40 0 -120" scale="3.5 3.5 3.5" rotation="0 90 0"></a-entity>
-
       <a-entity gltf-model="#house1" position="-20 0 -130" scale="5.5 5.5 5.5" rotation="0 0 0"></a-entity>
-
-
-
-
+      <a-entity gltf-model="#house2" position="-20 0 -150" scale="4.5 4.5 4.5" rotation="0 90 0"></a-entity>
+      <a-entity gltf-model="#rock" position="-43 0 -143" scale="7.5 7.5 7.5" rotation="0 90 0"></a-entity>
 
     </a-entity>
 
-    <a-entity gltf-model="#colossal" position="0 0 -245" scale="6 6 6" rotation="40 0 0"></a-entity>
+    <!-- Maisons droite -->
+
+    <a-entity>
+      <a-entity gltf-model="#house3" position="10 0 -50" scale="3.5 3.5 3.5" rotation="0 90 0"></a-entity>
+      <a-entity gltf-model="#house1" position="10 0 -15" scale="3.5 3.5 3.5" rotation="0 90 0"></a-entity>
+      <a-entity gltf-model="#house1" position="40 0 -25" scale="3.5 3.5 3.5" rotation="0 90 0"></a-entity>
+      <a-entity gltf-model="#house3" position="65 0 -45" scale="6.5 6.5 6.5" rotation="0 -90 0"></a-entity>
+      <a-entity gltf-model="#house1" position="65 0 -95" scale="6.5 6.5 6.5" rotation="0 -90 0"></a-entity>
+      <a-entity gltf-model="#house1" position="10 0 -95" scale="3.5 3.5 3.5" rotation="0 -90 0"></a-entity>
+      <a-entity gltf-model="#house3" position="15 0 -145" scale="5.5 5.5 5.5" rotation="0 -90 0"></a-entity>
+      <a-entity gltf-model="#house2" position="10 0 -28" scale="3.5 3.5 3.5" rotation="0 90 0"></a-entity>
+      <a-entity gltf-model="#rock" position="30 0 -68" scale="8 8 8" rotation="0 90 0"></a-entity>
+      <a-entity gltf-model="#house1" position="10 0 -75" scale="3.5 3.5 3.5" rotation="0 90 0"></a-entity>
+      <a-entity gltf-model="#house1" position="55 0 -75" scale="3.5 3.5 3.5" rotation="0 0 0"></a-entity>
+      <a-entity gltf-model="#house2" position="40 0 -20" scale="3.5 3.5 3.5" rotation="0 90 0"></a-entity>
+      <a-entity gltf-model="#house1" position="40 0 -40" scale="3.5 3.5 3.5" rotation="0 90 0"></a-entity>
+      <a-entity gltf-model="#house2" position="40 0 -100" scale="3.5 3.5 3.5" rotation="0 90 0"></a-entity>
+      <a-entity gltf-model="#house1" position="20 0 -120" scale="3.5 3.5 3.5" rotation="0 90 0"></a-entity>
+      <a-entity gltf-model="#house1" position="40 0 -130" scale="5.5 5.5 5.5" rotation="0 0 0"></a-entity>
+    </a-entity>
+
+    <a-entity gltf-model="#colossal" position="0 0 -248" scale="7 7 7" rotation="40 0 0"></a-entity>
     <a-image src="./assets/Smoke.H14.2k.png" position="0 100 -200" scale="200 200 200" rotation="0 0 0"></a-image>
 
-    <!-- Chemin -->
+    <!-- Chemin gauche-->
     <a-entity>
       <a-entity gltf-model="#mainpath" position="-0 0 -6" scale="2 2 2" rotation="0 90 0"></a-entity>
       <a-entity gltf-model="#path" position="-3 0 -20" scale="2 2 2"></a-entity>
@@ -140,6 +151,16 @@
       <a-entity gltf-model="#secondpath" position="-56.8 0 -60" scale="1.8 1.8 1.8" rotation="0 0 0"></a-entity>
       <a-entity gltf-model="#secondpath" position="-56.8 0 -86" scale="1.8 1.8 1.8" rotation="0 0 0"></a-entity>
       <a-entity gltf-model="#thirdpath" position="-22.8 0 -113.5" scale="1.8 1.8 1.8" rotation="0 0 0"></a-entity>
+
+    </a-entity>
+
+        <!-- Chemin droite-->
+    <a-entity>
+      <a-entity gltf-model="#thirdpath" position="3.8 0 -110" scale="1.8 1.8 1.8" rotation="0 0 0"></a-entity>
+      <a-entity gltf-model="#thirdpath" position="26.25 0 -83.5" scale="1.8 1.8 1.8" rotation="0 90 0"></a-entity>
+      <a-entity gltf-model="#thirdpath" position="26.25 0 -83.5" scale="1.8 1.8 1.8" rotation="0 0 0"></a-entity>
+
+
 
     </a-entity>
 
