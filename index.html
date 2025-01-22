@@ -46,7 +46,7 @@
       <!-- Caméra attachée au rig -->
       <a-entity camera look-controls wasd-controls="fly: false; acceleration: 10;" position="0 1.6 -8"></a-entity>
 
-        <a-sound src="src: url(./assets/music.mp3)" autoplay="true" loop="true" volume="1.5" position="0 5 -50"></a-sound>
+        <a-sound src="src: url(./assets/music.mp3)" target="#rig" autoplay="true" loop="true" volume="2.5" position="0 5 -50"></a-sound>
 
 
       <!-- Contrôleurs VR -->
@@ -56,8 +56,8 @@
 
       <!-- Sabres -->
 
-      <!-- <a-entity gltf-model="#sword" position="0.5 0.5 0" rotation="20 0 90" target="#rig" scale="0.0015 0.0015 0.0015"></a-entity>
-      <a-entity gltf-model="#sword" position="-0.5 0.5 0" rotation="20 0 90" target="#rig" scale="0.0015 0.0015 0.0015"></a-entity> -->
+      <a-entity gltf-model="#sword" position="0.5 0.5 0" rotation="20 0 90" target="#rig" scale="0.0015 0.0015 0.0015"></a-entity>
+      <a-entity gltf-model="#sword" position="-0.5 0.5 0" rotation="20 0 90" target="#rig" scale="0.0015 0.0015 0.0015"></a-entity>
 
       <a-entity laser-controls="hand: left" raycaster="objects: .clickable; far: 20; showLine: true"
         position="-0.5 1.5 -0.5"></a-entity>
