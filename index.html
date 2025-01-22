@@ -6,14 +6,15 @@
   <script src="https://unpkg.com/aframe-event-set-component@5.0.0/dist/aframe-event-set-component.min.js"></script>
   <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.5.4/dist/aframe-extras.min.js"></script>
   <script src="https://unpkg.com/aframe-environment-component/dist/aframe-environment-component.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/gh/n5ro/aframe-physics-system@v$npm_package_version/dist/aframe-physics-system.min.js"></script>
+  <script
+    src="https://cdn.jsdelivr.net/gh/n5ro/aframe-physics-system@v$npm_package_version/dist/aframe-physics-system.min.js"></script>
   <script src="https://cdn.jsdelivr.net/gh/kylebakerio/ada-water/ada-water.js"></script>
 
 
 </head>
 
 <body>
-  <a-scene fog="type: exponential; color: #fff000; density: 0.002">
+  <a-scene fog="type: exponential; color: #ff0000; density: 0.002">
     <a-assets>
       <a-asset-item id="FantasyHouse" src="./assets/FantasyHouse.glb"></a-asset-item>
 
@@ -30,23 +31,22 @@
       <a-asset-item id="path" src="./assets/Path.glb"></a-asset-item>
       <a-asset-item id="mainpath" src="./assets/mainpath.glb"></a-asset-item>
       <a-asset-item id="secondpath" src="./assets/secondpath.glb"></a-asset-item>
+      <a-asset-item id="thirdpath" src="./assets/thirdpath.glb"></a-asset-item>
       <a-asset-item id="fence" src="./assets/fence.glb"></a-asset-item>
-      <a-asset-item id="coll" src="./assets/coll.glb"></a-asset-item>
-
-
+      <a-asset-item id="colossal" src="./assets/colossal_titan.glb"></a-asset-item>
       <img id="road" src="./assets/ground.png"></img>
-
       <img id="map" src="./assets/normalmap.png"></img>
-
       <img id="stone" src="./assets/stone.png" alt="">
-
-
-
+      <img id="#smoke" src="./assets/Smoke.H14.2k.png" alt="">
     </a-assets>
+
+  <a-sound src="src: url(./assets/music.mp3)" autoplay="true" loop="true" volume="2.5" position="0 5 -50"></a-sound>
+
+    <!-- Caméra + mains -->
 
     <a-entity id="rig" movement-controls position="0 0 -8" kinematic-body foo>
       <!-- Caméra attachée au rig -->
-      <a-entity camera look-controls wasd-controls="fly: false; acceleration: 150;" position="0 1.6 -8"></a-entity>
+      <a-entity camera look-controls wasd-controls="fly: false; acceleration: 10;" position="0 1.6 -8"></a-entity>
 
       <!-- Contrôleurs VR -->
       <a-entity oculus-touch-controls="hand: left" ray-caster="objects: .clickable"></a-entity>
@@ -64,20 +64,23 @@
         position="0.5 1.5 -0.5"></a-entity>
     </a-entity>
 
+    <!-- Terrain -->
+    <a-entity>
+      <a-plane position="0 0 0" width="800" height="800" repeat="300 300" rotation="-90 0 0" roughness="1" static-body
+        material="src: #road"></a-plane>
+      <a-entity gltf-model="#wall" position="0 -1 15" scale="6 12 6"></a-entity>
+      <a-entity gltf-model="#wall2" position="0 -1 160" scale="6 12 6"></a-entity>
+      <a-entity gltf-model="#bolt" position="0 15 -325" scale="45 45 45"
+        shadow="cast: false; receive: true;"></a-entity>
+    </a-entity>
 
-    <a-plane position="0 0 0" width="800" height="800" repeat="300 300" rotation="-90 0 0" roughness="1" static-body
-      material="src: #road"></a-plane>
-    <a-entity gltf-model="#coll" width="800" height="800" repeat="300 300" rotation="-90 0 0" position="0 10 0"></a-entity>
-
-    <a-entity gltf-model="#wall" position="0 -1 15" scale="6 12 6"></a-entity>
-    <a-entity gltf-model="#wall2" position="0 -1 160" scale="6 12 6"></a-entity>
-
-    <a-entity gltf-model="#bolt" position="0 15 -325" scale="45 45 45" shadow="cast: false; receive: true;"></a-entity>
-
-    <a-entity class="clickable" cursor-listener gltf-model="#palm" position="0 0 0" scale="0.5 0.5 0.5"
-      visible="true"></a-entity>
-    <a-entity id="appear" class="clickable" cursor-listener gltf-model="#bolt" position="0 0 0" scale="0.5 0.5 0.5"
-      visible="false"></a-entity>
+    <!-- Intéraction  -->
+    <a-entity>
+      <a-entity class="clickable" cursor-listener gltf-model="#palm" position="0 0 0" scale="0.5 0.5 0.5"
+        visible="true"></a-entity>
+      <a-entity id="appear" class="clickable" cursor-listener gltf-model="#bolt" position="0 0 0" scale="0.5 0.5 0.5"
+        visible="false"></a-entity>
+    </a-entity>
 
     <!-- Maisons -->
     <a-entity>
@@ -112,37 +115,43 @@
 
     </a-entity>
 
-<!-- Chemin -->
+    <a-entity gltf-model="#colossal" position="0 0 -245" scale="6 6 6" rotation="40 0 0"></a-entity>
+    <a-image src="./assets/Smoke.H14.2k.png" position="0 100 -200" scale="200 200 200" rotation="0 0 0"></a-image>
+
+    <!-- Chemin -->
     <a-entity>
-        <a-entity gltf-model="#mainpath" position="-0 0 -6" scale="2 2 2" rotation="0 90 0"></a-entity>
-        <a-entity gltf-model="#path" position="-3 0 -20" scale="2 2 2"></a-entity>
-        <a-entity gltf-model="#path" position="-3 0 -23" scale="2 2 2"></a-entity>
-        <a-entity gltf-model="#path" position="-6 0 -20" scale="2 2 2"></a-entity>
-        <a-entity gltf-model="#path" position="-6 0 -23" scale="2 2 2"></a-entity>
-        <a-entity gltf-model="#path" position="-9 0 -20" scale="2 2 2"></a-entity>
-        <a-entity gltf-model="#path" position="-9 0 -23" scale="2 2 2"></a-entity>
-        <a-entity gltf-model="#path" position="-12 0 -20" scale="2 2 2"></a-entity>
-        <a-entity gltf-model="#path" position="-12 0 -23" scale="2 2 2"></a-entity>
-        <a-entity gltf-model="#path" position="-15 0 -20" scale="2 2 2"></a-entity>
-        <a-entity gltf-model="#path" position="-15 0 -23" scale="2 2 2"></a-entity>
-        <a-entity gltf-model="#path" position="-18 0 -20" scale="2 2 2"></a-entity>
-        <a-entity gltf-model="#path" position="-18 0 -23" scale="2 2 2"></a-entity>
-        <a-entity gltf-model="#path" position="-21 0 -20" scale="2 2 2"></a-entity>
-        <a-entity gltf-model="#path" position="-21 0 -23" scale="2 2 2"></a-entity>
-        <a-entity gltf-model="#mainpath" position="-24 0 105" scale="2 2 2" rotation="0 90 0"></a-entity>
-        <a-entity gltf-model="#secondpath" position="-58 0 -60" scale="1.8 1.8 1.8" rotation="0 0 0"></a-entity>
+      <a-entity gltf-model="#mainpath" position="-0 0 -6" scale="2 2 2" rotation="0 90 0"></a-entity>
+      <a-entity gltf-model="#path" position="-3 0 -20" scale="2 2 2"></a-entity>
+      <a-entity gltf-model="#path" position="-3 0 -23" scale="2 2 2"></a-entity>
+      <a-entity gltf-model="#path" position="-6 0 -20" scale="2 2 2"></a-entity>
+      <a-entity gltf-model="#path" position="-6 0 -23" scale="2 2 2"></a-entity>
+      <a-entity gltf-model="#path" position="-9 0 -20" scale="2 2 2"></a-entity>
+      <a-entity gltf-model="#path" position="-9 0 -23" scale="2 2 2"></a-entity>
+      <a-entity gltf-model="#path" position="-12 0 -20" scale="2 2 2"></a-entity>
+      <a-entity gltf-model="#path" position="-12 0 -23" scale="2 2 2"></a-entity>
+      <a-entity gltf-model="#path" position="-15 0 -20" scale="2 2 2"></a-entity>
+      <a-entity gltf-model="#path" position="-15 0 -23" scale="2 2 2"></a-entity>
+      <a-entity gltf-model="#path" position="-18 0 -20" scale="2 2 2"></a-entity>
+      <a-entity gltf-model="#path" position="-18 0 -23" scale="2 2 2"></a-entity>
+      <a-entity gltf-model="#path" position="-21 0 -20" scale="2 2 2"></a-entity>
+      <a-entity gltf-model="#path" position="-21 0 -23" scale="2 2 2"></a-entity>
+      <a-entity gltf-model="#mainpath" position="-24 0 105" scale="2 2 2" rotation="0 90 0"></a-entity>
+      <a-entity gltf-model="#secondpath" position="-56.8 0 -60" scale="1.8 1.8 1.8" rotation="0 0 0"></a-entity>
+      <a-entity gltf-model="#secondpath" position="-56.8 0 -86" scale="1.8 1.8 1.8" rotation="0 0 0"></a-entity>
+      <a-entity gltf-model="#thirdpath" position="-22.8 0 -113.5" scale="1.8 1.8 1.8" rotation="0 0 0"></a-entity>
 
     </a-entity>
 
-<!-- Eau -->
+    <!-- Eau -->
 
-<a-water position="-70 0.11 -50" scale="1.5 20 1"></a-water>
-<a-entity gltf-model="#fence" position="-60 0 0" rotation="0 90 0"></a-entity>
-<a-entity gltf-model="#fence" position="-80 0 0" rotation="0 90 0"></a-entity>
+    <a-water position="-70 0.11 -50" scale="1.5 20 1"></a-water>
+    <a-entity gltf-model="#fence" position="-60 0 0" rotation="0 90 0"></a-entity>
+    <a-entity gltf-model="#fence" position="-80 0 0" rotation="0 90 0"></a-entity>
 
-<!-- Lumières -->
-    <a-light type="ambient" color="#ffffff" intensity="1.5"></a-light>
+    <!-- Lumières -->
+    <a-light type="ambient" color="#ff0000" intensity="1.5"></a-light>
     <a-light type="directional" position="0 5 -22" color="#ffffff" intensity="0.7"></a-light>
+    <a-light type="directional" position="0 5 35" color="#ffffff" intensity="1.7"></a-light>
 
 
     <a-sky src="#stars"></a-sky>
