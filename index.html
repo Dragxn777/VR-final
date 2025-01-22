@@ -35,6 +35,7 @@
       <a-asset-item id="fence" src="./assets/fence.glb"></a-asset-item>
       <a-asset-item id="colossal" src="./assets/colossal_titan.glb"></a-asset-item>
       <a-asset-item id="rock" src="./assets/rock.glb"></a-asset-item>
+      <a-asset-item id="man" src="./assets/Man.glb"></a-asset-item>
 
       <img id="road" src="./assets/ground.png"></img>
       <img id="map" src="./assets/normalmap.png"></img>
@@ -46,7 +47,7 @@
 
     <a-entity id="rig" movement-controls position="0 0 -8" kinematic-body foo>
       <!-- Caméra attachée au rig -->
-      <a-entity camera look-controls wasd-controls="fly: false; acceleration: 150;" position="0 1.6 -8"></a-entity>
+      <a-entity camera look-controls wasd-controls="fly: true; acceleration: 150;" position="0 1.6 -8"></a-entity>
 
       <a-sound src="src: url(./assets/music2.mp3)" autoplay="true" loop="true" volume="1"></a-sound>
 
@@ -80,12 +81,12 @@
     </a-entity>
 
     <!-- Intéraction  -->
-    <a-entity>
+    <!-- <a-entity>
       <a-entity class="clickable" cursor-listener gltf-model="#palm" position="0 0 0" scale="0.5 0.5 0.5"
         visible="true"></a-entity>
       <a-entity id="appear" class="clickable" cursor-listener gltf-model="#bolt" position="0 0 0" scale="0.5 0.5 0.5"
         visible="false"></a-entity>
-    </a-entity>
+    </a-entity> -->
 
     <!-- Maisons gauche -->
     <a-entity>
@@ -154,7 +155,7 @@
 
     </a-entity>
 
-        <!-- Chemin droite-->
+    <!-- Chemin droite-->
     <a-entity>
       <a-entity gltf-model="#thirdpath" position="3.8 0 -110" scale="1.8 1.8 1.8" rotation="0 0 0"></a-entity>
       <a-entity gltf-model="#thirdpath" position="26.25 0 -83.5" scale="1.8 1.8 1.8" rotation="0 90 0"></a-entity>
@@ -163,6 +164,10 @@
 
 
     </a-entity>
+
+
+    <a-entity class="clickable " cursor-listener gltf-model="#man" scale="0.5 0.5 0.5" rotation="-90 0 0"
+      position="0 0.2 -20"></a-entity>
 
     <!-- Eau -->
 
@@ -182,10 +187,14 @@
 
   <script>
     AFRAME.registerComponent("cursor-listener", {
+     
       init: function () {
+         let perso = this.el;
         this.el.addEventListener("click", function (evt) {
-          this.setAttribute("visible", "false");
-          document.getElementById("appear").setAttribute("visible", "true");
+          perso.setAttribute('animation__001', {
+            'property': 'rotation',
+            'to': { x: 0, y: 0, z: 0 },
+          });
         });
       },
     });
