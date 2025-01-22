@@ -1,7 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
   <script src="https://unpkg.com/aframe-event-set-component@5.0.0/dist/aframe-event-set-component.min.js"></script>
   <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.5.4/dist/aframe-extras.min.js"></script>
@@ -9,6 +11,7 @@
   <script
     src="https://cdn.jsdelivr.net/gh/n5ro/aframe-physics-system@v$npm_package_version/dist/aframe-physics-system.min.js"></script>
   <script src="https://cdn.jsdelivr.net/gh/kylebakerio/ada-water/ada-water.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400&display=swap" rel="stylesheet">
 
 
 </head>
@@ -36,6 +39,8 @@
       <a-asset-item id="colossal" src="./assets/colossal_titan.glb"></a-asset-item>
       <a-asset-item id="rock" src="./assets/rock.glb"></a-asset-item>
       <a-asset-item id="man" src="./assets/Man.glb"></a-asset-item>
+      <a-asset-item id="titan" src="./assets/titan.glb"></a-asset-item>
+      <a-asset-item id="beast" src="./assets/beast_titan.glb"></a-asset-item>
 
       <img id="road" src="./assets/ground.png"></img>
       <img id="map" src="./assets/normalmap.png"></img>
@@ -47,9 +52,11 @@
 
     <a-entity id="rig" movement-controls position="0 0 -8" kinematic-body foo>
       <!-- Caméra attachée au rig -->
-      <a-entity camera look-controls wasd-controls="fly: true; acceleration: 150;" position="0 1.6 -8"></a-entity>
+      <a-entity camera look-controls wasd-controls="fly: false; acceleration: 2;" position="0 1.6 -8"></a-entity>
 
       <a-sound src="src: url(./assets/music2.mp3)" autoplay="true" loop="true" volume="1"></a-sound>
+      <a-text id="counter" font="https://cdn.aframe.io/fonts/Roboto-msdf.json" target="#rig"
+        value="Titans abbatus : 0" position="2 1 -1" rotation="0 -90 0"></a-text>
 
 
       <!-- Contrôleurs VR -->
@@ -80,13 +87,6 @@
         shadow="cast: false; receive: true;"></a-entity>
     </a-entity>
 
-    <!-- Intéraction  -->
-    <!-- <a-entity>
-      <a-entity class="clickable" cursor-listener gltf-model="#palm" position="0 0 0" scale="0.5 0.5 0.5"
-        visible="true"></a-entity>
-      <a-entity id="appear" class="clickable" cursor-listener gltf-model="#bolt" position="0 0 0" scale="0.5 0.5 0.5"
-        visible="false"></a-entity>
-    </a-entity> -->
 
     <!-- Maisons gauche -->
     <a-entity>
@@ -166,8 +166,15 @@
     </a-entity>
 
 
-    <a-entity class="clickable " cursor-listener gltf-model="#man" scale="0.5 0.5 0.5" rotation="-90 0 0"
-      position="0 0.1 -20"></a-entity>
+<a-entity class="clickable" cursor-listener gltf-model="#beast" scale="0.02 0.02 0.02"
+          rotation="0 0 0" position="0 0 -20">
+  <!-- Lueur avec un shader personnalisé -->
+  <a-entity class="glow" geometry="primitive: sphere; radius: 26;" 
+            material="shader: standard; color: limegreen; opacity: 0.4; transparent: true; emissive: limegreen; emissiveIntensity: 1.5;" 
+            position="0 200 0">
+  </a-entity>
+</a-entity>
+
 
     <!-- Eau -->
 
@@ -186,18 +193,33 @@
   </a-scene>
 
   <script>
-    AFRAME.registerComponent("cursor-listener", {
-     
-      init: function () {
-         let perso = this.el;
-        this.el.addEventListener("click", function (evt) {
-          perso.setAttribute('animation__001', {
-            'property': 'rotation',
-            'to': { x: 0, y: 0, z: 0 },
-          });
-        });
-      },
+AFRAME.registerComponent("cursor-listener", {
+  init: function () {
+    // Initialise le compteur
+    let counterElement = document.querySelector("#counter");
+    let counter = 0;
+
+    // Gère l'événement de clic
+    this.el.addEventListener("click", function (evt) {
+      // Animation du personnage (si nécessaire)
+      evt.target.setAttribute('animation__001', {
+        property: 'rotation',
+        to: { x: -90, y: 0, z: 0 },
+      });
+
+      // Sélectionne la sphère (enfant avec la classe "glow") et la rend invisible
+      let glow = evt.target.querySelector(".glow");
+      if (glow) {
+        glow.setAttribute("visible", false); // Cache la sphère
+      }
+
+      // Incrémente le compteur
+      counter++;
+      counterElement.setAttribute("value", "Titans abbatus : " + counter);
     });
+  },
+});
+
   </script>
 
 </body>
