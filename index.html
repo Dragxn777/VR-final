@@ -40,13 +40,14 @@
       <img id="#smoke" src="./assets/Smoke.H14.2k.png" alt="">
     </a-assets>
 
-  <a-sound src="src: url(./assets/music.mp3)" autoplay="true" loop="true" volume="2.5" position="0 5 -50"></a-sound>
-
     <!-- Caméra + mains -->
 
     <a-entity id="rig" movement-controls position="0 0 -8" kinematic-body foo>
       <!-- Caméra attachée au rig -->
       <a-entity camera look-controls wasd-controls="fly: false; acceleration: 10;" position="0 1.6 -8"></a-entity>
+
+        <a-sound src="src: url(./assets/music.mp3)" autoplay="true" loop="true" volume="1.5" position="0 5 -50"></a-sound>
+
 
       <!-- Contrôleurs VR -->
       <a-entity oculus-touch-controls="hand: left" ray-caster="objects: .clickable"></a-entity>
