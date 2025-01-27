@@ -60,22 +60,18 @@
 
 
       <!-- Contrôleurs VR -->
-      <a-entity oculus-touch-controls="hand: left" ray-caster="objects: .clickable"></a-entity>
-      <a-entity oculus-touch-controls="hand: right"></a-entity>
-
-
       <!-- Sabres -->
 
 
 
 
-      <a-entity laser-controls="hand: left" raycaster="objects: .clickable; far: 20; showLine: true" position=""
+      <a-entity oculus-touch-controls="hand: left" laser-controls="hand: left" raycaster="objects: .clickable; far: 20; showLine: true" position=""
         rotation="0 45 0">
         <a-entity gltf-model="#sword" position="0 0 0" rotation="-40 0 90" target="#rig"
           scale="0.0014 0.0014 0.0014"></a-entity>
       </a-entity>
 
-      <a-entity laser-controls="hand: right" raycaster="objects: .clickable; far: 20; showLine: true"
+      <a-entity oculus-touch-controls="hand: right" laser-controls="hand: right" raycaster="objects: .clickable; far: 20; showLine: true"
         position="0.5 1.5 -0.5">
         <a-entity gltf-model="#sword" position="0 0 0" rotation="-40 0 90" target="#rig"
           scale="0.0014 0.0014 0.0014"></a-entity>
