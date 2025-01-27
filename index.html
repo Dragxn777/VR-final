@@ -55,27 +55,26 @@
       <a-entity camera look-controls wasd-controls="fly: true; acceleration: 150;" position="0 1.6 -8"></a-entity>
 
       <a-sound src="src: url(./assets/music2.mp3)" autoplay="true" loop="true" volume="1"></a-sound>
-      <a-text id="counter" font="https://cdn.aframe.io/fonts/Roboto-msdf.json" target="#rig"
-        value="Titans abbatus : 0" position="2 1 -1" rotation="0 -90 0"></a-text>
+      <a-text id="counter" font="https://cdn.aframe.io/fonts/Roboto-msdf.json" target="#rig" value="Titans abbatus : 0"
+        position="2 1 -1" rotation="0 -90 0"></a-text>
 
 
       <!-- Contrôleurs VR -->
-      <a-entity oculus-touch-controls="hand: left" ray-caster="objects: .clickable"></a-entity>
-      <a-entity oculus-touch-controls="hand: right"></a-entity>
+      <a-entity oculus-touch-controls="hand: left" ray-caster="objects: .clickable">
+        <a-entity gltf-model="#sword" position="0 0 0" rotation="20 0 90" target="#rig"
+          scale="0.0012 0.0012 0.0012"></a-entity>
+      </a-entity>
 
+      <a-entity oculus-touch-controls="hand: right">
+        <a-entity gltf-model="#sword" position="0 0 0" rotation="20 0 90" target="#rig"
+          scale="0.0012 0.0012 0.0012"></a-entity>
+      </a-entity>
 
-      <!-- Sabres -->
-
-      <a-entity gltf-model="#sword" position="0.5 0.7 0" rotation="20 0 90" target="#rig"
-        scale="0.0014 0.0014 0.0014"></a-entity>
-      <a-entity gltf-model="#sword" position="-0.5 0.7 0" rotation="20 0 90" target="#rig"
-        scale="0.0014 0.0014 0.0014"></a-entity>
-
-      <a-entity laser-controls="hand: left" raycaster="objects: .clickable; far: 20; showLine: true"
-        position="-0.5 1.5 -0.5"></a-entity>
-      <a-entity laser-controls="hand: right" raycaster="objects: .clickable; far: 20; showLine: true"
-        position="0.5 1.5 -0.5"></a-entity>
     </a-entity>
+
+
+    <!-- Sabres -->
+
 
     <!-- Terrain -->
     <a-entity>
@@ -165,38 +164,38 @@
 
     </a-entity>
 
-<!-- Titans -->
-<a-entity class="clickable" cursor-listener gltf-model="#beast" scale="0.02 0.02 0.02"
-          rotation="0 0 0" position="0 0 -20">
-  <a-entity class="glow" geometry="primitive: sphere; radius: 26;" 
-            material="shader: standard; color: tomato; opacity: 0.4; transparent: true; emissive: limegreen; emissiveIntensity: 1.5;" 
-            position="0 200 0">
-  </a-entity>
-</a-entity>
+    <!-- Titans -->
+    <a-entity class="clickable" cursor-listener gltf-model="#beast" scale="0.02 0.02 0.02" rotation="0 0 0"
+      position="0 0 -20">
+      <a-entity class="glow" geometry="primitive: sphere; radius: 26;"
+        material="shader: standard; color: tomato; opacity: 0.4; transparent: true; emissive: limegreen; emissiveIntensity: 1.5;"
+        position="0 200 0">
+      </a-entity>
+    </a-entity>
 
-<a-entity class="clickable" cursor-listener gltf-model="#beast" scale="0.04 0.04 0.04"
-          rotation="0 35 0" position="-35 0 -55">
-  <a-entity class="glow" geometry="primitive: sphere; radius: 30;" 
-            material="shader: standard; color: tomato; opacity: 0.4; transparent: true; emissive: limegreen; emissiveIntensity: 1.5;" 
-            position="0 200 0">
-  </a-entity>
-</a-entity>
+    <a-entity class="clickable" cursor-listener gltf-model="#beast" scale="0.04 0.04 0.04" rotation="0 35 0"
+      position="-35 0 -55">
+      <a-entity class="glow" geometry="primitive: sphere; radius: 30;"
+        material="shader: standard; color: tomato; opacity: 0.4; transparent: true; emissive: limegreen; emissiveIntensity: 1.5;"
+        position="0 200 0">
+      </a-entity>
+    </a-entity>
 
-<a-entity class="clickable" cursor-listener gltf-model="#beast" scale="0.04 0.04 0.04"
-          rotation="0 48 0" position="20 0 -10">
-  <a-entity class="glow" geometry="primitive: sphere; radius: 30;" 
-            material="shader: standard; color: tomato; opacity: 0.4; transparent: true; emissive: limegreen; emissiveIntensity: 1.5;" 
-            position="0 200 0">
-  </a-entity>
-</a-entity>
+    <a-entity class="clickable" cursor-listener gltf-model="#beast" scale="0.04 0.04 0.04" rotation="0 48 0"
+      position="20 0 -10">
+      <a-entity class="glow" geometry="primitive: sphere; radius: 30;"
+        material="shader: standard; color: tomato; opacity: 0.4; transparent: true; emissive: limegreen; emissiveIntensity: 1.5;"
+        position="0 200 0">
+      </a-entity>
+    </a-entity>
 
-<a-entity class="clickable" cursor-listener gltf-model="#beast" scale="0.06 0.06 0.06"
-          rotation="0 -50 0" position="50 0 -25">
-  <a-entity class="glow" geometry="primitive: sphere; radius: 31;" 
-            material="shader: standard; color: tomato; opacity: 0.4; transparent: true; emissive: limegreen; emissiveIntensity: 1.5;" 
-            position="0 200 0">
-  </a-entity>
-</a-entity>
+    <a-entity class="clickable" cursor-listener gltf-model="#beast" scale="0.06 0.06 0.06" rotation="0 -50 0"
+      position="50 0 -25">
+      <a-entity class="glow" geometry="primitive: sphere; radius: 31;"
+        material="shader: standard; color: tomato; opacity: 0.4; transparent: true; emissive: limegreen; emissiveIntensity: 1.5;"
+        position="0 200 0">
+      </a-entity>
+    </a-entity>
 
     <!-- Eau -->
 
@@ -215,32 +214,32 @@
   </a-scene>
 
   <script>
-AFRAME.registerComponent("cursor-listener", {
-  init: function () {
-    // Initialise le compteur
-    let counterElement = document.querySelector("#counter");
-    let counter = 0;
+    AFRAME.registerComponent("cursor-listener", {
+      init: function () {
+        // Initialise le compteur
+        let counterElement = document.querySelector("#counter");
+        let counter = 0;
 
-    // Gère l'événement de clic
-    this.el.addEventListener("click", function (evt) {
-      // Animation du personnage (si nécessaire)
-      evt.target.setAttribute('animation__001', {
-        property: 'rotation',
-        to: { x: -90, y: 0, z: 0 },
-      });
+        // Gère l'événement de clic
+        this.el.addEventListener("click", function (evt) {
+          // Animation du personnage (si nécessaire)
+          evt.target.setAttribute('animation__001', {
+            property: 'rotation',
+            to: { x: -90, y: 0, z: 0 },
+          });
 
-      // Sélectionne la sphère (enfant avec la classe "glow") et la rend invisible
-      let glow = evt.target.querySelector(".glow");
-      if (glow) {
-        glow.setAttribute("visible", false); // Cache la sphère
-      }
+          // Sélectionne la sphère (enfant avec la classe "glow") et la rend invisible
+          let glow = evt.target.querySelector(".glow");
+          if (glow) {
+            glow.setAttribute("visible", false); // Cache la sphère
+          }
 
-      // Incrémente le compteur
-      counter++;
-      counterElement.setAttribute("value", "Titans abbatus : " + counter);
+          // Incrémente le compteur
+          counter++;
+          counterElement.setAttribute("value", "Titans abbatus : " + counter);
+        });
+      },
     });
-  },
-});
 
   </script>
 
