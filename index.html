@@ -18,6 +18,7 @@
 
 <body>
   <a-scene fog="type: exponential; color: #ff0000; density: 0.002">
+    
     <a-assets>
       <a-asset-item id="FantasyHouse" src="./assets/FantasyHouse.glb"></a-asset-item>
 
@@ -41,6 +42,7 @@
       <a-asset-item id="man" src="./assets/Man.glb"></a-asset-item>
       <a-asset-item id="titan" src="./assets/titan.glb"></a-asset-item>
       <a-asset-item id="beast" src="./assets/beast_titan.glb"></a-asset-item>
+      <a-asset-item id="navmesh" src="../assets/navmesh.glb"></a-asset-item>
 
       <img id="road" src="./assets/ground.png">
       <img id="map" src="./assets/normalmap.png">
@@ -50,39 +52,51 @@
 
     <!-- Caméra + sabres -->
 
-    <a-entity id="rig" movement-controls position="0 0 -8" kinematic-body foo>
+    <a-entity id="rig" movement-controls="constrainToNavMesh: true;" position="0 0 -8">
       <!-- Caméra attachée au rig -->
-      <a-entity id="camera" camera look-controls wasd-controls="fly: true; acceleration: 150;" position="0 1.6 -8"></a-entity>
+      <a-entity id="camera" camera look-controls="pointerLockEnabled: true" wasd-controls="fly: true; acceleration: 150;"
+        position="0 1.6 -8"></a-entity>
 
       <a-sound src="src: url(./assets/music2.mp3)" autoplay="true" loop="true" volume="1"></a-sound>
 
-       <a-text id="timer" value="Temps restant : 0:10" position="1 1.2 -1" rotation="0 -45 0" color="white"></a-text>
+      <a-text id="timer" value="Temps restant : 0:10" position="1 1.2 -1" rotation="0 -45 0" color="white"></a-text>
 
       <a-text id="villager-counter" target="#rig" value="Villageois secourus : 0 / 12" position="1 0.8 -1"
         rotation="0 -45 0"></a-text>
       <a-text id="counter" target="#rig" value="Titans abbatus : 0 / 8" position="1 0.5 -1" rotation="0 -45 0"></a-text>
 
 
-      <a-entity oculus-touch-controls="hand: left" laser-controls="hand: left" raycaster="objects: .clickable; far: 20; lineOpacity: 0; showLine: false;" rotation="0 45 0">
+      <a-entity oculus-touch-controls="hand: left" laser-controls="hand: left"
+        raycaster="objects: .clickable; far: 20; lineOpacity: 0; showLine: false;" rotation="0 45 0">
         <a-entity gltf-model="#sword" position="0 0 0" rotation="-40 0 90" target="#rig"
           scale="0.0012 0.0012 0.0012"></a-entity>
       </a-entity>
 
-      <a-entity oculus-touch-controls="hand: right" laser-controls="hand: right" raycaster="objects: .clickable; far: 20; lineOpacity: 0; showLine: false;">
+      <a-entity oculus-touch-controls="hand: right" laser-controls="hand: right"
+        raycaster="objects: .clickable; far: 20; lineOpacity: 0; showLine: false;">
         <a-entity gltf-model="#sword" position="0 0 0" rotation="-40 0 90" target="#rig"
           scale="0.0012 0.0012 0.0012"></a-entity>
       </a-entity>
     </a-entity>
 
-<!-- Écran pour le fondu noir -->
-<a-entity id="fade-screen" geometry="primitive: plane; height: 10; width: 10"
-          material="color: black; opacity: 0; transparent: true"
-          position="0 0 -0.5" rotation="0 0 0" visible="false">
-</a-entity>
+    <!-- Écran pour le fondu noir -->
+    <a-entity id="fade-screen" geometry="primitive: plane; height: 10; width: 10"
+      material="color: black; opacity: 0; transparent: true" position="0 0 -0.5" rotation="0 0 0" visible="false">
+    </a-entity>
+
+     <a-entity
+        nav-mesh
+        normal-material
+        visible="false"
+        position="0 0.1 -70"
+        rotation="0 90 0"
+        scale="5.7 10.9 6.4"
+        gltf-model="#navmesh"
+      ></a-entity>
 
     <!-- Terrain -->
     <a-entity>
-      <a-plane position="0 0 0" width="800" height="800" repeat="300 300" rotation="-90 0 0" roughness="1" static-body
+      <a-plane position="0 0 0" width="800" height="800" repeat="300 300" rotation="-90 0 0" roughness="1"
         material="src: #road"></a-plane>
       <a-entity gltf-model="#wall" position="0 -1 15" scale="6 12 6"></a-entity>
       <a-entity gltf-model="#wall2" position="0 -1 160" scale="6 12 6"></a-entity>
@@ -327,159 +341,159 @@
   </a-scene>
 
   <script>
-// Variables globales pour les compteurs et le chronomètre
-let globalCounter = 0; 
-let villagerCounter = 0; 
-let gameDuration = 10; 
-let interval = null; 
+    // Variables globales pour les compteurs et le chronomètre
+    let globalCounter = 0;
+    let villagerCounter = 0;
+    let gameDuration = 10;
+    let interval = null;
 
-// Lancement du chronomètre
-function startTimer() {
-  let timerElement = document.querySelector("#timer");
+    // Lancement du chronomètre
+    function startTimer() {
+      let timerElement = document.querySelector("#timer");
 
-  // Vérifie si un intervalle est déjà en cours pour éviter les doublons
-  if (interval) return;
+      // Vérifie si un intervalle est déjà en cours pour éviter les doublons
+      if (interval) return;
 
-  interval = setInterval(() => {
-    if (gameDuration > 0) {
-      gameDuration--;
+      interval = setInterval(() => {
+        if (gameDuration > 0) {
+          gameDuration--;
 
-      // Mise à jour du texte du chronomètre
-      let minutes = Math.floor(gameDuration / 60);
-      let seconds = gameDuration % 60;
-      timerElement.setAttribute(
-        "value",
-        `Temps restant : ${minutes}:${seconds < 10 ? "0" : ""}${seconds}`
-      );
-    } else {
-      clearInterval(interval); // Arrête le chronomètre
-      checkWinCondition(); // Vérifie si le joueur a gagné ou perdu
+          // Mise à jour du texte du chronomètre
+          let minutes = Math.floor(gameDuration / 60);
+          let seconds = gameDuration % 60;
+          timerElement.setAttribute(
+            "value",
+            `Temps restant : ${minutes}:${seconds < 10 ? "0" : ""}${seconds}`
+          );
+        } else {
+          clearInterval(interval); // Arrête le chronomètre
+          checkWinCondition(); // Vérifie si le joueur a gagné ou perdu
+        }
+      }, 1000);
     }
-  }, 1000);
-}
 
 
-// Vérifie si on a gagné ou perdu
-function checkWinCondition() {
-    console.log("Fin du jeu"); // Debug
+    // Vérifie si on a gagné ou perdu
+    function checkWinCondition() {
+      console.log("Fin du jeu"); // Debug
 
-let scene = document.querySelector("a-entity[camera]") || document.querySelector("a-scene");
+      let scene = document.querySelector("a-entity[camera]") || document.querySelector("a-scene");
 
-  // Supprime d'abord tout ancien message
-  let oldMessage = document.querySelector("#end-message");
-  if (oldMessage) {
-    oldMessage.parentNode.removeChild(oldMessage);
-  }
+      // Supprime d'abord tout ancien message
+      let oldMessage = document.querySelector("#end-message");
+      if (oldMessage) {
+        oldMessage.parentNode.removeChild(oldMessage);
+      }
 
-  let message = document.createElement("a-entity");
-  message.setAttribute("id", "end-message");
-  message.setAttribute("position", "0 2 -3");
+      let message = document.createElement("a-entity");
+      message.setAttribute("id", "end-message");
+      message.setAttribute("position", "0 2 -3");
 
-  if (villagerCounter >= 12 && globalCounter >= 8) {
+      if (villagerCounter >= 12 && globalCounter >= 8) {
         console.log("✅ Victoire !");
 
-    // Message de victoire
-    message.setAttribute("text", {
-      value: "Victoire ! Tu as pu secourir le village !",
-      align: "center",
-      width: 10,
-      color: "green",
-      font: "exo2bold",
+        // Message de victoire
+        message.setAttribute("text", {
+          value: "Victoire ! Tu as pu secourir le village !",
+          align: "center",
+          width: 10,
+          color: "green",
+          font: "exo2bold",
 
-    });
-  } else {
+        });
+      } else {
         console.log("✅ Défaite !");
 
-    // Message de défaite
-    message.setAttribute("text", {
-      value: "Perdu... Tu n'as pas pu secourir le village.",
-      align: "center",
-      width: 10,
-      color: "red",
-      font: "exo2bold",
-    });
-  }
-
-  scene.appendChild(message);
-}
-
-// Démarrage du jeu
-document.addEventListener("DOMContentLoaded", () => {
-  startTimer(); // Appelé UNE SEULE FOIS à l’ouverture de la page
-});
-
-
-
-// Composant pour les Titans
-AFRAME.registerComponent("cursor-listener", {
-  init: function () {
-    // Sélectionne l'élément du compteur des Titans
-    let counterElement = document.querySelector("#counter");
-
-    // Gère l'événement de clic
-    this.el.addEventListener("click", function (evt) {
-      // Animation du Titan
-      evt.target.setAttribute("animation__001", {
-        property: "rotation",
-        to: { x: -90, y: 0, z: 0 },
-      });
-
-      // Cache la sphère "glow"
-      let glow = evt.target.querySelector(".glow");
-      if (glow) {
-        glow.setAttribute("visible", false);
+        // Message de défaite
+        message.setAttribute("text", {
+          value: "Perdu... Tu n'as pas pu secourir le village.",
+          align: "center",
+          width: 10,
+          color: "red",
+          font: "exo2bold",
+        });
       }
 
-      // Incrémente le compteur des Titans
-      globalCounter++;
-      counterElement.setAttribute("value", "Titans abattus : " + globalCounter + " / 8");
+      scene.appendChild(message);
+    }
 
-      // Vérifie si les objectifs sont atteints
-      checkWinCondition();
+    // Démarrage du jeu
+    document.addEventListener("DOMContentLoaded", () => {
+      startTimer(); // Appelé UNE SEULE FOIS à l’ouverture de la page
     });
-  },
-});
 
 
 
-// Composant pour les villageois
-AFRAME.registerComponent("villager-listener", {
-  init: function () {
-    // Sélectionne l'élément du compteur des villageois
-    let villagerCounterElement = document.querySelector("#villager-counter");
+    // Composant pour les Titans
+    AFRAME.registerComponent("cursor-listener", {
+      init: function () {
+        // Sélectionne l'élément du compteur des Titans
+        let counterElement = document.querySelector("#counter");
 
-    // Gère l'événement de clic
-    this.el.addEventListener("click", function (evt) {
-      // Animation du villageois
-      evt.target.setAttribute("animation__001", {
-        property: "rotation",
-        to: { x: 0, y: 0, z: 0 },
-      });
+        // Gère l'événement de clic
+        this.el.addEventListener("click", function (evt) {
+          // Animation du Titan
+          evt.target.setAttribute("animation__001", {
+            property: "rotation",
+            to: { x: -90, y: 0, z: 0 },
+          });
 
-      // Cache la sphère "glow"
-      let glow = evt.target.querySelector(".glow");
-      if (glow) {
-        glow.setAttribute("visible", false);
-      }
+          // Cache la sphère "glow"
+          let glow = evt.target.querySelector(".glow");
+          if (glow) {
+            glow.setAttribute("visible", false);
+          }
 
-      // Incrémente le compteur des villageois
-      villagerCounter++;
-      villagerCounterElement.setAttribute(
-        "value",
-        "Villageois secourus : " + villagerCounter + " / 12"
-      );
+          // Incrémente le compteur des Titans
+          globalCounter++;
+          counterElement.setAttribute("value", "Titans abattus : " + globalCounter + " / 8");
 
-      // Vérifie si les objectifs sont atteints
-      checkWinCondition();
+          // Vérifie si les objectifs sont atteints
+          checkWinCondition();
+        });
+      },
     });
-  },
-});
 
 
-// Démarre le chronomètre au chargement de la scène
-document.addEventListener("DOMContentLoaded", () => {
-  startTimer();
-});
+
+    // Composant pour les villageois
+    AFRAME.registerComponent("villager-listener", {
+      init: function () {
+        // Sélectionne l'élément du compteur des villageois
+        let villagerCounterElement = document.querySelector("#villager-counter");
+
+        // Gère l'événement de clic
+        this.el.addEventListener("click", function (evt) {
+          // Animation du villageois
+          evt.target.setAttribute("animation__001", {
+            property: "rotation",
+            to: { x: 0, y: 0, z: 0 },
+          });
+
+          // Cache la sphère "glow"
+          let glow = evt.target.querySelector(".glow");
+          if (glow) {
+            glow.setAttribute("visible", false);
+          }
+
+          // Incrémente le compteur des villageois
+          villagerCounter++;
+          villagerCounterElement.setAttribute(
+            "value",
+            "Villageois secourus : " + villagerCounter + " / 12"
+          );
+
+          // Vérifie si les objectifs sont atteints
+          checkWinCondition();
+        });
+      },
+    });
+
+
+    // Démarre le chronomètre au chargement de la scène
+    document.addEventListener("DOMContentLoaded", () => {
+      startTimer();
+    });
 
   </script>
 
