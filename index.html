@@ -388,7 +388,7 @@
 
       let message = document.createElement("a-entity");
       message.setAttribute("id", "end-message");
-      message.setAttribute("position", "0 2 -3");
+      message.setAttribute("position", "0 0.3 -3");
 
       if (villagerCounter >= 12 && globalCounter >= 8) {
         console.log("✅ Victoire !");
@@ -396,8 +396,8 @@
         // Message de victoire
         message.setAttribute("text", {
           value: "Victoire ! Tu as pu secourir le village !",
-          align: "bottom",
-          width: 25,
+          align: "center",
+          width: 5,
           color: "green",
           font: "exo2bold",
 
